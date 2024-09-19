@@ -1,0 +1,42 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:57678",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Deps_CleanArchitecture": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "POSTGRES_CONNECTION": "Server=localhost;Port=5432;Database=Deps_CleanArchitecture;User Id=postgres;Password=postgres;Pooling=true;TimeZone=America/Sao_Paulo",
+        "JWT_KEY": "jfRVHqN7HJExsDokHJRA85tt4QexDeWT",
+        "JWT_ISSUER": "localhost:5151",
+        "JWT_AUDIENCE": "localhost:4200"
+      },
+      "applicationUrl": "http://localhost:57679"
+    }
+    ,
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "publishAllPorts": true,
+      "sslPort": 49155,
+      "httpPort": 49154
+    }
+  }
+}
