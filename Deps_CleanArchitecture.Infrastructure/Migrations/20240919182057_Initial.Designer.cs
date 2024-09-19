@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Deps_CleanArchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240919171239_Initial")]
+    [Migration("20240919182057_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,81 +24,7 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7ab35225-3e82-471f-94f1-5acbe28b5897",
-                            ConcurrencyStamp = "0316933e-a3e3-4d68-8e81-c1029f4a6d26",
-                            Name = "Administrador",
-                            NormalizedName = "ADMINISTRADOR"
-                        },
-                        new
-                        {
-                            Id = "4159d75f-a5f8-4ace-976e-7b526fb26b9f",
-                            ConcurrencyStamp = "cad3f464-b612-4c1e-81f7-0bd71b58e889",
-                            Name = "Usuário Gestor",
-                            NormalizedName = "USUÁRIO GESTOR"
-                        },
-                        new
-                        {
-                            Id = "d46dcb2e-e1a6-404e-b4d8-a9f7a2d95345",
-                            ConcurrencyStamp = "70700c79-1be5-4fd1-a0ea-769022933e38",
-                            Name = "Usuário",
-                            NormalizedName = "USUÁRIO"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("Deps_CleanArchitecture.Core.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -109,6 +35,9 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
+
+                    b.Property<decimal>("Credito")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -164,20 +93,95 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "11600e80-99c0-4c6b-a857-0070615113bd",
+                            Id = "ba2550d3-bd35-4f95-af63-de989d1e1a89",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5e2aacf5-8676-4cc4-8645-231fde366ec4",
+                            ConcurrencyStamp = "474e815c-b4d8-4b6a-829e-dcb34b48ac72",
+                            Credito = 0m,
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEJNShJ5t52bXZcgBa3WvCWOUeSQfZmCx3jr/cwjTyhTPMtFPjuGBujVhodtq5yF6g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEALirL4Z9W3gqVIZVPkWmZVA5hxCPCST8t2VSeQcGh+uXE02M0P6MwmpyJ+jJgyBug==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "add15b21-0280-4937-9e0e-68fff8987816",
+                            SecurityStamp = "c9160b71-b012-46b9-a3e5-5cdb3b03d461",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "25c8b87c-474b-4ebe-8e5a-b9cb8ab3d91e",
+                            ConcurrencyStamp = "561991e9-bb4e-4684-a8b4-4f6113358305",
+                            Name = "Administrador",
+                            NormalizedName = "ADMINISTRADOR"
+                        },
+                        new
+                        {
+                            Id = "2060bce4-dade-45df-a57f-e8e1159ccac4",
+                            ConcurrencyStamp = "0665ba9d-e549-48ba-b5cd-0aae8dce525b",
+                            Name = "Usuário Gestor",
+                            NormalizedName = "USUÁRIO GESTOR"
+                        },
+                        new
+                        {
+                            Id = "eb3e4883-515b-4ddc-bca1-7e043de13ded",
+                            ConcurrencyStamp = "d996f88e-a9e6-44d2-9a5e-9b4bf74242c7",
+                            Name = "Usuário",
+                            NormalizedName = "USUÁRIO"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -244,8 +248,8 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "11600e80-99c0-4c6b-a857-0070615113bd",
-                            RoleId = "7ab35225-3e82-471f-94f1-5acbe28b5897"
+                            UserId = "ba2550d3-bd35-4f95-af63-de989d1e1a89",
+                            RoleId = "25c8b87c-474b-4ebe-8e5a-b9cb8ab3d91e"
                         });
                 });
 
@@ -279,7 +283,7 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Deps_CleanArchitecture.Core.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -288,7 +292,7 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Deps_CleanArchitecture.Core.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -303,7 +307,7 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Deps_CleanArchitecture.Core.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -312,7 +316,7 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Deps_CleanArchitecture.Core.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

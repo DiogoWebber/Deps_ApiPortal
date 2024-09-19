@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Deps_CleanArchitecture.Infrastructure.Data;
 
-public class IdentityContext : IdentityDbContext<IdentityUser> 
+public class IdentityContext : IdentityDbContext<ApplicationUser> 
 {
     
     public IdentityContext(DbContextOptions<IdentityContext> options)
@@ -33,8 +33,8 @@ public class IdentityContext : IdentityDbContext<IdentityUser>
             UsersRoles.GetIdentityRole(UsersRoles.Usuario, Guid.NewGuid().ToString())
         );
         
-        var hasher = new PasswordHasher<IdentityUser>();
-        var adminUser = new IdentityUser
+        var hasher = new PasswordHasher<ApplicationUser>();
+        var adminUser = new ApplicationUser
         {
             Id = Guid.NewGuid().ToString(),
             UserName = adminUsername,
@@ -43,10 +43,11 @@ public class IdentityContext : IdentityDbContext<IdentityUser>
             NormalizedEmail = adminEmail.ToUpper(),
             EmailConfirmed = true,
             PasswordHash = hasher.HashPassword(null, adminPassword), // Set a strong password here
-            SecurityStamp = Guid.NewGuid().ToString()
+            SecurityStamp = Guid.NewGuid().ToString(),
+            Credito = 0
         };
         
-        builder.Entity<IdentityUser>().HasData(adminUser);
+        builder.Entity<ApplicationUser>().HasData(adminUser);
         
         builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
         {

@@ -19,11 +19,11 @@ namespace Deps_CleanArchitecture.Web.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public UsersController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,7 +33,7 @@ public class UsersController : ControllerBase
         [HttpPost("register")]
         public async Task<IActionResult> Register(string username, string password)
         {
-            var user = new IdentityUser { UserName = username };
+            var user = new ApplicationUser { UserName = username };
             var result = await _userManager.CreateAsync(user, password);
 
             if (result.Succeeded)
@@ -79,7 +79,7 @@ public class UsersController : ControllerBase
             return Ok($"Role do usuário '{username}' foi atualizada para '{newRole}'.");
         }
 
-
+        
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(string username, string password)
@@ -96,7 +96,7 @@ public class UsersController : ControllerBase
             return Unauthorized("Invalid login attempt");
         }
 
-        private async Task<string> GenerateJwtToken(IdentityUser user)
+        private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var claims = new List<Claim>
             {

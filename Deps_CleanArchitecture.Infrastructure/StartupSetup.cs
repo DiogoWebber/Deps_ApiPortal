@@ -1,4 +1,5 @@
-﻿using Deps_CleanArchitecture.Infrastructure.Data;
+﻿using Deps_CleanArchitecture.Core.Entities;
+using Deps_CleanArchitecture.Infrastructure.Data;
 using Deps_CleanArchitecture.Infrastructure.Identity;
 using Deps_CleanArchitecture.SharedKernel.Util;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +16,7 @@ namespace Deps_CleanArchitecture.Infrastructure
             services.AddDbContext<IdentityContext>(options =>
                 options.UseNpgsql(AmbienteUtil.GetValue("POSTGRES_CONNECTION")));
             
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
         }
