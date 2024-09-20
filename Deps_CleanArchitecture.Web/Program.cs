@@ -35,6 +35,10 @@ try
 
     builder.Services.AddDbContext(); //START CONFIGS BANCOS INFRA
     builder.Services.ConfigureJwt();
+    
+    
+    builder.Services.AddHttpClient();
+
 
     const string CORS_POLICY = "CorsPolicy";
     builder.Services.AddCors(options =>
