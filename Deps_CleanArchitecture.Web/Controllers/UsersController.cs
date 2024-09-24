@@ -98,27 +98,35 @@ public class UsersController : ControllerBase
 
         private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
+            // Criação da lista de claims com o UserName e UserId
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim("clienteID", user.Id), 
+                new Claim("IdEmpresa", user.IdEmpresa)
             };
 
+            // Adicionando os roles do usuário como claims
             var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
+            // Gerando chave simétrica e credenciais de assinatura
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AmbienteUtil.GetValue("JWT_KEY")));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            // Configurando o token JWT
             var token = new JwtSecurityToken(
                 issuer: AmbienteUtil.GetValue("JWT_ISSUER"),
                 audience: AmbienteUtil.GetValue("JWT_AUDIENCE"),
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds);
+                signingCredentials: creds
+            );
 
+            // Retorna o token JWT gerado
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

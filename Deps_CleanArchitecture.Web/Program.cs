@@ -52,7 +52,10 @@ try
                           });
     });
     
-    builder.Services.AddControllers();
+    builder.Services.AddControllers().AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    });
     
     builder.Services.AddSwaggerGen(c =>
     {

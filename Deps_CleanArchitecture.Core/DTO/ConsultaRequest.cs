@@ -4,10 +4,10 @@ namespace Deps_CleanArchitecture.Core.DTO
 {
     public class ConsultaRequest
     {
-        public string CNPJ { get; set; }
-        public string Produto { get; set; }
-        public List<int> IdProvedores { get; set; }
+        public string documento { get; set; }
+        public string idProduto { get; set; }
+        public string IdUsuario { get; set; } 
+        public string IdEmpresa { get; set; }  
         
-        public string UsuarioId { get; set; } 
     }
 }

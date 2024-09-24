@@ -1,11 +1,14 @@
+using System;
 using Deps_CleanArchitecture.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Deps_CleanArchitecture.Core.DTO;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.JsonWebTokens;
+using System.Collections.Generic;
 
 namespace Deps_CleanArchitecture.Web.Controllers
 {
@@ -14,9 +17,15 @@ namespace Deps_CleanArchitecture.Web.Controllers
     public class ConsultaController : ControllerBase
     {
         private readonly HttpClient _httpClient;
-
-        public ConsultaController(HttpClient httpClient)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        
+        public ConsultaController(HttpClient httpClient, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
             _httpClient = httpClient;
         }
 
@@ -25,35 +34,48 @@ namespace Deps_CleanArchitecture.Web.Controllers
         [Authorize(Roles = UsersRoles.Admin)] // Requer autenticação
         public async Task<IActionResult> ConsultaCnpjProduto([FromBody] ConsultaRequest request)
         {
-            // Captura o ID do usuário autenticado
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userId = _userManager.GetUserId(User); 
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized("Usuário não autenticado.");
             }
+    
+            var usuarioId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+            var idEmpresa = User.FindFirst("IdEmpresa")?.Value;
 
-            // Construir o objeto a ser enviado para a outra API
+            if (string.IsNullOrEmpty(usuarioId) || string.IsNullOrEmpty(idEmpresa))
+            {
+                return Unauthorized("IdEmpresa ou UsuarioId não encontrado no token.");
+            }
+            
+            var produtoRequest = new ProdutoRequest
+            {
+                idProduto = request.idProduto,
+                nomeProduto = "Nome do Produto",
+                Credito = 100.00m, 
+                Provedores = new List<ProvedoresRequest>
+                {
+                    new ProvedoresRequest
+                    {
+                        IdProvedores = "19500", 
+                        NomeProvedor = "Provedor Exemplo" 
+                    }
+                },
+                IdEmpresa = idEmpresa 
+            };
+            
             var payload = new
             {
-                CNPJ = request.CNPJ,
-                Produto = request.Produto,
-                IdProvedores = request.IdProvedores,
-                UsuarioId = userId // Incluir o ID do usuário na consulta
+                Documento = request.documento, 
+                Produto = produtoRequest,  
+                IdUsuario = usuarioId, // Agora pegando do token
+                IdEmpresa = idEmpresa,  // Agora pegando do token
             };
 
-            // Serializar o objeto em JSON
-            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            var jsonPayload = JsonSerializer.Serialize(payload);
+            Console.WriteLine(jsonPayload); 
 
-            // Enviar a requisição POST para outra API
-            var response = await _httpClient.PostAsync("https://external-api.com/api/consulta", content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseBody = await response.Content.ReadAsStringAsync();
-                return Ok(responseBody); // Retornar a resposta da API externa
-            }
-
-            return BadRequest("Erro ao enviar dados para a API externa");
+            return Ok(payload);
         }
     }
 }
