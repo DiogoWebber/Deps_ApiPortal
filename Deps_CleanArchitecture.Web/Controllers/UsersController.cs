@@ -30,24 +30,66 @@ public class UsersController : ControllerBase
             _roleManager = roleManager;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(string username, string password)
+        [HttpPost("registerGestor")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> Register(string username, string password, string idEmpresa)
+        {
+            var user = new ApplicationUser { UserName = username, Id = idEmpresa };
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, UsersRoles.Gestor);
+                return Ok("Usuário registrado com sucesso com a role de 'Gestor'.");
+            }
+
+            return BadRequest(result.Errors);
+        }
+        
+        [HttpPost("registerADM")]
+        [Authorize(Roles = UsersRoles.Admin)]
+        public async Task<IActionResult> RegisterADM(string username, string password)
         {
             var user = new ApplicationUser { UserName = username };
             var result = await _userManager.CreateAsync(user, password);
 
             if (result.Succeeded)
             {
-                // Atribui automaticamente a role 'Usuario'
-                await _userManager.AddToRoleAsync(user, "Usuário");
-                return Ok("Usuário registrado com sucesso com a role de 'Usuario'.");
+                await _userManager.AddToRoleAsync(user, UsersRoles.Admin);
+                return Ok("Usuário registrado com sucesso com a role de 'Admin'.");
+            }
+
+            return BadRequest(result.Errors);
+        }
+        
+        [HttpPost("registerUsuario")]
+        [Authorize(Roles = "Gestor, Administrador")]
+        public async Task<IActionResult> RegisterUsuario(string username, string password, string role)
+        {
+            var roleExists = await _roleManager.RoleExistsAsync(role);
+            if (!roleExists)
+            {
+                return BadRequest($"A role '{role}' não existe.");
+            }
+
+            var currentUser = HttpContext.User; 
+            if (currentUser.IsInRole(UsersRoles.Gestor) && role.Equals(UsersRoles.Admin, StringComparison.OrdinalIgnoreCase))
+            {
+                return Forbid("Usuários com a role de 'Gestor' não podem criar usuários com a role de 'Administrador'.");
+            }
+
+            var user = new ApplicationUser { UserName = username };
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, role);
+                return Ok($"Usuário registrado com sucesso com a role de '{role}'.");
             }
 
             return BadRequest(result.Errors);
         }
 
-        
-        
         [HttpPost("update-role")]
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> UpdateUserRole(string username, string newRole)
@@ -103,7 +145,7 @@ public class UsersController : ControllerBase
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim("clienteID", user.Id), 
-                new Claim("IdEmpresa", user.IdEmpresa)
+                new Claim("IdEmpresa", user.ClienteId)
             };
 
             // Adicionando os roles do usuário como claims

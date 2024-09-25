@@ -19,7 +19,7 @@ public class IdentityContext : IdentityDbContext<ApplicationUser>
     public DbSet<Produto> Produtos { get; set; } 
     public DbSet<Provedores> Provedores { get; set; } 
     public DbSet<ProdutoProvedor> ProdutoProvedor { get; set; } 
-
+    public DbSet<Cliente> Clientes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -29,7 +29,6 @@ public class IdentityContext : IdentityDbContext<ApplicationUser>
         var adminUsername = AmbienteUtil.GetValue("DefaultAdmin:Username") ?? "Admin";
         var adminEmail = AmbienteUtil.GetValue("DefaultAdmin:Email") ?? "admin@mail.com";
         var adminPassword = AmbienteUtil.GetValue("DefaultAdmin:Password") ?? "Admin@123";
-        var IdEmpresa = AmbienteUtil.GetValue("DefaultAdmin:IdEmpresa") ?? "19500";
 
         var adminRoleId = Guid.NewGuid().ToString();
 
@@ -51,7 +50,7 @@ public class IdentityContext : IdentityDbContext<ApplicationUser>
             PasswordHash = hasher.HashPassword(null, adminPassword),
             SecurityStamp = Guid.NewGuid().ToString(),
             Credito = 0,
-            IdEmpresa = IdEmpresa.ToUpper()
+            ClienteId = "1"
         };
 
         builder.Entity<ApplicationUser>().HasData(adminUser);
@@ -66,12 +65,19 @@ public class IdentityContext : IdentityDbContext<ApplicationUser>
             .HasKey(p => p.IdProduto); 
         
         builder.Entity<Provedores>()
-            .HasKey(p => p.IdProvedores); // Define a chave primária
-
-        // Configuração do relacionamento muitos para muitos
+            .HasKey(p => p.IdProvedores);
+        
+        builder.Entity<Cliente>()
+            .HasKey(c => c.Id); 
+        
         builder.Entity<ProdutoProvedor>()
             .HasKey(pp => new { pp.ProdutoId, pp.ProvedorId });
-
+        
+        builder.Entity<ApplicationUser>()
+            .HasOne(a => a.Cliente)
+            .WithMany(c => c.Produtos)
+            .HasForeignKey(a => a.ClienteId);
+        
         builder.Entity<ProdutoProvedor>()
             .HasOne(pp => pp.Produto)
             .WithMany(p => p.ProdutoProvedores)
@@ -84,15 +90,39 @@ public class IdentityContext : IdentityDbContext<ApplicationUser>
         builder.Entity<Provedores>().HasData(
             new Provedores
             {
-                IdProvedores = "98b68a84-905e-4f26-80d5-13eb9e843d44",
+                IdProvedores = "1250",
                 NomeProvedor = "Deps"
             }
         );
         builder.Entity<Provedores>().HasData(
             new Provedores
             {
-                IdProvedores = "c7765432-4386-4b87-80e7-b535f3540781", 
+                IdProvedores = "1000", 
                 NomeProvedor = "DadosPublicos"
+            }
+        );
+        
+        builder.Entity<Cliente>().HasData(
+            new Cliente
+            {
+                Id = "1",
+                Nome = "Deps",
+                Email = "deps@mail.com",
+                Telefone = "123456789"
+            },
+            new Cliente
+            {
+                Id = "2",
+                Nome = "Bauducco",
+                Email = "bauducco@mail.com",
+                Telefone = "123456789"
+            },
+            new Cliente
+            {
+                Id = "3",
+                Nome = "Apple",
+                Email = "apple@mail.com",
+                Telefone = "987654321"
             }
         );
     }

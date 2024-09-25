@@ -54,18 +54,17 @@ namespace Deps_CleanArchitecture.Web.Controllers
                 _context.Produtos.Add(produto);
                 await _context.SaveChangesAsync();
 
-                // Cria um objeto anônimo para a resposta
                 var produtoResponse = new
                 {
                     IdProduto = produto.IdProduto,
                     NomeProduto = produto.NomeProduto,
                     Credito = produto.Credito,
-                    IdEmpresa = produto.IdEmpresa,
                     Provedores = produto.ProdutoProvedores.Select(pp => new
                     {
                         ProvedorId = pp.ProvedorId,
                         NomeProvedor = produtoRequest.Provedores.FirstOrDefault(p => p.IdProvedores == pp.ProvedorId)?.NomeProvedor
-                    }).ToList()
+                    }).ToList(),
+                    IdEmpresa = produto.IdEmpresa
                 };
 
                 return CreatedAtAction(nameof(CriarProduto), new { id = produto.IdProduto }, produtoResponse);

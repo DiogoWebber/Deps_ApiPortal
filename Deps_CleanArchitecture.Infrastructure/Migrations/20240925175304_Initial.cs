@@ -25,30 +25,17 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "Clientes",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Credito = table.Column<decimal>(type: "numeric", nullable: false),
-                    IdEmpresa = table.Column<string>(type: "text", nullable: true),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                    Nome = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Telefone = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +82,62 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Credito = table.Column<decimal>(type: "numeric", nullable: false),
+                    ClienteId = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProdutoProvedor",
+                columns: table => new
+                {
+                    ProdutoId = table.Column<string>(type: "text", nullable: false),
+                    ProvedorId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProdutoProvedor", x => new { x.ProdutoId, x.ProvedorId });
+                    table.ForeignKey(
+                        name: "FK_ProdutoProvedor_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produtos",
+                        principalColumn: "IdProduto",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProdutoProvedor_Provedores_ProvedorId",
+                        column: x => x.ProvedorId,
+                        principalTable: "Provedores",
+                        principalColumn: "IdProvedores",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -183,44 +226,25 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ProdutoProvedor",
-                columns: table => new
-                {
-                    ProdutoId = table.Column<string>(type: "text", nullable: false),
-                    ProvedorId = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProdutoProvedor", x => new { x.ProdutoId, x.ProvedorId });
-                    table.ForeignKey(
-                        name: "FK_ProdutoProvedor_Produtos_ProdutoId",
-                        column: x => x.ProdutoId,
-                        principalTable: "Produtos",
-                        principalColumn: "IdProduto",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProdutoProvedor_Provedores_ProvedorId",
-                        column: x => x.ProvedorId,
-                        principalTable: "Provedores",
-                        principalColumn: "IdProvedores",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0772f581-7491-4076-ac74-ed99f957f379", "6ae2a448-1831-48d5-bb5e-f7c9244a583f", "Usuário Gestor", "USUÁRIO GESTOR" },
-                    { "5d79c32d-6f63-42aa-80c7-029f2999b28e", "072a5bb7-800e-4994-a671-43b4a603ed25", "Administrador", "ADMINISTRADOR" },
-                    { "8d52c1ea-4a79-443b-b89a-5957e0bab6d1", "a5b03ab1-c9bd-498a-87e3-9d7295b924f7", "Usuário", "USUÁRIO" }
+                    { "8a031b5a-2449-4734-993e-e911bb83eb31", "70400f25-44f6-4da9-bff4-a0d79f49b069", "Usuário Gestor", "USUÁRIO GESTOR" },
+                    { "af225931-7643-45b4-b57d-89e91332b435", "d4fd412e-ad06-447f-8831-6189b4b36507", "Usuário", "USUÁRIO" },
+                    { "f68eb0c2-79f7-4d04-a778-e7ac42da4652", "d384b5b8-3d5d-47f9-8a76-bbd18fd4ae39", "Administrador", "ADMINISTRADOR" }
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Credito", "Email", "EmailConfirmed", "IdEmpresa", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "747db043-8b7f-4609-a352-9b6007c7869f", 0, "861348b9-ae88-4e7b-84bb-5c47d6cf7779", 0m, "admin@mail.com", true, "19500", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEE0OqnVBEAmrGQDcbAp50E85Drv3Q+TMchNmUugSUhSW6HztEEIrDDtLiQKdFHvLsA==", null, false, "5032d901-362b-4333-9d42-b4c73a70a4d7", false, "Admin" });
+                table: "Clientes",
+                columns: new[] { "Id", "Email", "Nome", "Telefone" },
+                values: new object[,]
+                {
+                    { "1", "deps@mail.com", "Deps", "123456789" },
+                    { "2", "bauducco@mail.com", "Bauducco", "123456789" },
+                    { "3", "apple@mail.com", "Apple", "987654321" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Provedores",
@@ -232,9 +256,14 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ClienteId", "ConcurrencyStamp", "Credito", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "518644eb-0b58-4f55-9c6f-cc273f50835e", 0, "1", "b3ba8485-3bfe-4af0-9224-acd4b5ca3c36", 0m, "admin@mail.com", true, false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEDZ0A0igMwiSyk/SGqhSYzaDYqH5HTk6I0M8Oufw7L/ZAZJLpmHewYqNdfMkbSiXxg==", null, false, "025dd681-af06-43f5-8621-7821d29374ee", false, "Admin" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "5d79c32d-6f63-42aa-80c7-029f2999b28e", "747db043-8b7f-4609-a352-9b6007c7869f" });
+                values: new object[] { "f68eb0c2-79f7-4d04-a778-e7ac42da4652", "518644eb-0b58-4f55-9c6f-cc273f50835e" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -266,6 +295,11 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ClienteId",
+                table: "AspNetUsers",
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -310,6 +344,9 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Provedores");
+
+            migrationBuilder.DropTable(
+                name: "Clientes");
         }
     }
 }

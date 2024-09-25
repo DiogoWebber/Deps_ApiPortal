@@ -30,6 +30,9 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ClienteId")
+                        .HasColumnType("text");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
@@ -43,9 +46,6 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("IdEmpresa")
-                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -82,6 +82,8 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClienteId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -94,21 +96,63 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "747db043-8b7f-4609-a352-9b6007c7869f",
+                            Id = "518644eb-0b58-4f55-9c6f-cc273f50835e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "861348b9-ae88-4e7b-84bb-5c47d6cf7779",
+                            ClienteId = "1",
+                            ConcurrencyStamp = "b3ba8485-3bfe-4af0-9224-acd4b5ca3c36",
                             Credito = 0m,
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
-                            IdEmpresa = "19500",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE0OqnVBEAmrGQDcbAp50E85Drv3Q+TMchNmUugSUhSW6HztEEIrDDtLiQKdFHvLsA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDZ0A0igMwiSyk/SGqhSYzaDYqH5HTk6I0M8Oufw7L/ZAZJLpmHewYqNdfMkbSiXxg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5032d901-362b-4333-9d42-b4c73a70a4d7",
+                            SecurityStamp = "025dd681-af06-43f5-8621-7821d29374ee",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
+                        });
+                });
+
+            modelBuilder.Entity("Deps_CleanArchitecture.Core.Entities.Cliente", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clientes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Email = "deps@mail.com",
+                            Nome = "Deps",
+                            Telefone = "123456789"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Email = "bauducco@mail.com",
+                            Nome = "Bauducco",
+                            Telefone = "123456789"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Email = "apple@mail.com",
+                            Nome = "Apple",
+                            Telefone = "987654321"
                         });
                 });
 
@@ -174,22 +218,22 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5d79c32d-6f63-42aa-80c7-029f2999b28e",
-                            ConcurrencyStamp = "072a5bb7-800e-4994-a671-43b4a603ed25",
+                            Id = "f68eb0c2-79f7-4d04-a778-e7ac42da4652",
+                            ConcurrencyStamp = "d384b5b8-3d5d-47f9-8a76-bbd18fd4ae39",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "0772f581-7491-4076-ac74-ed99f957f379",
-                            ConcurrencyStamp = "6ae2a448-1831-48d5-bb5e-f7c9244a583f",
+                            Id = "8a031b5a-2449-4734-993e-e911bb83eb31",
+                            ConcurrencyStamp = "70400f25-44f6-4da9-bff4-a0d79f49b069",
                             Name = "Usuário Gestor",
                             NormalizedName = "USUÁRIO GESTOR"
                         },
                         new
                         {
-                            Id = "8d52c1ea-4a79-443b-b89a-5957e0bab6d1",
-                            ConcurrencyStamp = "a5b03ab1-c9bd-498a-87e3-9d7295b924f7",
+                            Id = "af225931-7643-45b4-b57d-89e91332b435",
+                            ConcurrencyStamp = "d4fd412e-ad06-447f-8831-6189b4b36507",
                             Name = "Usuário",
                             NormalizedName = "USUÁRIO"
                         });
@@ -284,8 +328,8 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "747db043-8b7f-4609-a352-9b6007c7869f",
-                            RoleId = "5d79c32d-6f63-42aa-80c7-029f2999b28e"
+                            UserId = "518644eb-0b58-4f55-9c6f-cc273f50835e",
+                            RoleId = "f68eb0c2-79f7-4d04-a778-e7ac42da4652"
                         });
                 });
 
@@ -331,6 +375,15 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                             IdProvedores = "1000",
                             NomeProvedor = "DadosPublicos"
                         });
+                });
+
+            modelBuilder.Entity("Deps_CleanArchitecture.Core.Entities.ApplicationUser", b =>
+                {
+                    b.HasOne("Deps_CleanArchitecture.Core.Entities.Cliente", "Cliente")
+                        .WithMany("Produtos")
+                        .HasForeignKey("ClienteId");
+
+                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("Deps_CleanArchitecture.Core.Entities.ProdutoProvedor", b =>
@@ -401,6 +454,11 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Deps_CleanArchitecture.Core.Entities.Cliente", b =>
+                {
+                    b.Navigation("Produtos");
                 });
 
             modelBuilder.Entity("Deps_CleanArchitecture.Core.Entities.Produto", b =>

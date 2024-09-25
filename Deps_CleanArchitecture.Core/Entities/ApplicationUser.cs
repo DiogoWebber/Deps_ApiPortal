@@ -6,6 +6,9 @@ namespace Deps_CleanArchitecture.Core.Entities
     {
         public decimal Credito { get; set; } = 0;
 
-        public string IdEmpresa { get; set; }
+        public string ClienteId { get; set; }
+
+        public Cliente Cliente { get; set; }
     }
+
 }
