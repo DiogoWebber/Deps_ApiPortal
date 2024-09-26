@@ -96,19 +96,19 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "518644eb-0b58-4f55-9c6f-cc273f50835e",
+                            Id = "a4be6151-48d2-4712-9725-96d8a712edbe",
                             AccessFailedCount = 0,
                             ClienteId = "1",
-                            ConcurrencyStamp = "b3ba8485-3bfe-4af0-9224-acd4b5ca3c36",
+                            ConcurrencyStamp = "6943daac-014a-4bf5-bb68-1113be53899f",
                             Credito = 0m,
                             Email = "admin@mail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDZ0A0igMwiSyk/SGqhSYzaDYqH5HTk6I0M8Oufw7L/ZAZJLpmHewYqNdfMkbSiXxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMGNzlqkry+34qpLAEiTQiIoYRkQQTcf6GjmZu3v+NBwJQfQF5ABwfzMGqFIphkOUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "025dd681-af06-43f5-8621-7821d29374ee",
+                            SecurityStamp = "b539d0c9-9129-4e2b-89a3-1c740e349a91",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -218,22 +218,22 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f68eb0c2-79f7-4d04-a778-e7ac42da4652",
-                            ConcurrencyStamp = "d384b5b8-3d5d-47f9-8a76-bbd18fd4ae39",
+                            Id = "61881b4f-cda0-41c9-a5e4-19b1b879b978",
+                            ConcurrencyStamp = "af1b73cc-0f54-4f66-a28a-fb578cdb88f1",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "8a031b5a-2449-4734-993e-e911bb83eb31",
-                            ConcurrencyStamp = "70400f25-44f6-4da9-bff4-a0d79f49b069",
+                            Id = "844355c2-e8ca-4e01-806b-e969eb0ecf62",
+                            ConcurrencyStamp = "77cc2506-dcda-4f2e-99e3-87e5ede4485b",
                             Name = "Usuário Gestor",
                             NormalizedName = "USUÁRIO GESTOR"
                         },
                         new
                         {
-                            Id = "af225931-7643-45b4-b57d-89e91332b435",
-                            ConcurrencyStamp = "d4fd412e-ad06-447f-8831-6189b4b36507",
+                            Id = "4212e168-e473-4349-8d13-f5189ae1ec9d",
+                            ConcurrencyStamp = "5492d480-cc40-4fc4-ac39-4479c5895607",
                             Name = "Usuário",
                             NormalizedName = "USUÁRIO"
                         });
@@ -328,8 +328,8 @@ namespace Deps_CleanArchitecture.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "518644eb-0b58-4f55-9c6f-cc273f50835e",
-                            RoleId = "f68eb0c2-79f7-4d04-a778-e7ac42da4652"
+                            UserId = "a4be6151-48d2-4712-9725-96d8a712edbe",
+                            RoleId = "61881b4f-cda0-41c9-a5e4-19b1b879b978"
                         });
                 });
 

@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Deps_CleanArchitecture.Core.Entities;
+using Deps_CleanArchitecture.Infrastructure.Data;
 using Deps_CleanArchitecture.SharedKernel.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,29 +23,56 @@ public class UsersController : ControllerBase
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IdentityContext _context; // Your DbContext
 
-        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, 
+            IdentityContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         [HttpPost("registerGestor")]
         [Authorize(Roles = "Administrador")]
-        public async Task<IActionResult> Register(string username, string password, string idEmpresa)
+        public async Task<IActionResult> Register(string username, string password, string clienteId)
         {
-            var user = new ApplicationUser { UserName = username, Id = idEmpresa };
+            // Fetch the Cliente entity based on the provided ClienteId
+            var cliente = await _context.Clientes.FindAsync(clienteId);
+
+            // Check if the Cliente exists
+            if (cliente == null)
+            {
+                return NotFound("Cliente not found.");
+            }
+
+            // Create the ApplicationUser, associating it with the found Cliente
+            var user = new ApplicationUser
+            {
+                UserName = username,
+                ClienteId = cliente.Id, // Associating the user with the Cliente
+                Email = $"{username}@example.com", // Example email, adjust as needed
+                EmailConfirmed = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            // Create the user with the specified password
             var result = await _userManager.CreateAsync(user, password);
 
+            // Check if the user was created successfully
             if (result.Succeeded)
             {
+                // Add the user to the 'Gestor' role
                 await _userManager.AddToRoleAsync(user, UsersRoles.Gestor);
                 return Ok("Usuário registrado com sucesso com a role de 'Gestor'.");
             }
 
+            // Return any errors encountered during user creation
             return BadRequest(result.Errors);
         }
+
+
         
         [HttpPost("registerADM")]
         [Authorize(Roles = UsersRoles.Admin)]
