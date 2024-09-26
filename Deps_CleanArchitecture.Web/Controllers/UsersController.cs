@@ -91,32 +91,54 @@ public class UsersController : ControllerBase
         }
         
         [HttpPost("registerUsuario")]
-        [Authorize(Roles = "Gestor, Administrador")]
+        [Authorize(Roles = $"{UsersRoles.Gestor},{UsersRoles.Admin}")]
         public async Task<IActionResult> RegisterUsuario(string username, string password, string role)
         {
+            // Check if the specified role exists
             var roleExists = await _roleManager.RoleExistsAsync(role);
             if (!roleExists)
             {
                 return BadRequest($"A role '{role}' não existe.");
             }
 
-            var currentUser = HttpContext.User; 
+            // Get the current user from the context
+            var currentUser = HttpContext.User;
+
+            // Prevent Gestor from creating Admin users
             if (currentUser.IsInRole(UsersRoles.Gestor) && role.Equals(UsersRoles.Admin, StringComparison.OrdinalIgnoreCase))
             {
                 return Forbid("Usuários com a role de 'Gestor' não podem criar usuários com a role de 'Administrador'.");
             }
 
-            var user = new ApplicationUser { UserName = username };
+            // Extract ClienteId from the JWT token claims
+            var clienteIdClaim = currentUser.FindFirst("ClienteId")?.Value;
+            if (string.IsNullOrEmpty(clienteIdClaim))
+            {
+                return BadRequest("Não foi possível encontrar o ClienteId no token do usuário.");
+            }
+
+            // Create a new ApplicationUser and associate with the extracted ClienteId
+            var user = new ApplicationUser
+            {
+                UserName = username,
+                ClienteId = clienteIdClaim // Use the extracted ClienteId
+            };
+
+            // Create the user with the specified password
             var result = await _userManager.CreateAsync(user, password);
 
+            // Check if the user was created successfully
             if (result.Succeeded)
             {
+                // Add the user to the specified role
                 await _userManager.AddToRoleAsync(user, role);
                 return Ok($"Usuário registrado com sucesso com a role de '{role}'.");
             }
 
+            // Return any errors encountered during user creation
             return BadRequest(result.Errors);
         }
+
 
         [HttpPost("update-role")]
         [Authorize(Roles = "Administrador")]
@@ -168,12 +190,11 @@ public class UsersController : ControllerBase
 
         private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
-            // Criação da lista de claims com o UserName e UserId
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim("clienteID", user.Id), 
-                new Claim("IdEmpresa", user.ClienteId)
+                new Claim("UserId", user.Id), 
+                new Claim("ClienteId", user.ClienteId)
             };
 
             // Adicionando os roles do usuário como claims
