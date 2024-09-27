@@ -7,7 +7,7 @@ namespace Deps_CleanArchitecture.Core.Entities
         public string IdProduto { get; set; } 
         public string NomeProduto { get; set; }
         public decimal Credito { get; set; }
-        public string IdEmpresa { get; set; }
+        public string ClienteId { get; set; }
         
         public ICollection<ProdutoProvedor> ProdutoProvedores { get; set; } // Tabela de junção
     }

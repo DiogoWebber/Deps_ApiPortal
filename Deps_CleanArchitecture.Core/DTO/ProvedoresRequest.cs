@@ -17,7 +17,7 @@ namespace Deps_CleanArchitecture.Core.DTO
         public string nomeProduto { get; set; }
         public decimal Credito { get; set; }
         public List<ProvedoresRequest> Provedores { get; set; }
-        public string IdEmpresa { get; set; }
+        public string ClienteId { get; set; }
 
     }
 }

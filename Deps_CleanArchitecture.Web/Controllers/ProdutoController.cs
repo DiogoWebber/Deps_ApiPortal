@@ -42,7 +42,7 @@ namespace Deps_CleanArchitecture.Web.Controllers
                 IdProduto = Guid.NewGuid().ToString(),
                 NomeProduto = produtoRequest.nomeProduto,
                 Credito = produtoRequest.Credito,
-                IdEmpresa = produtoRequest.IdEmpresa,
+                ClienteId = produtoRequest.ClienteId,
                 ProdutoProvedores = produtoRequest.Provedores.Select(p => new ProdutoProvedor
                 {
                     ProvedorId = p.IdProvedores,
@@ -64,7 +64,7 @@ namespace Deps_CleanArchitecture.Web.Controllers
                         ProvedorId = pp.ProvedorId,
                         NomeProvedor = produtoRequest.Provedores.FirstOrDefault(p => p.IdProvedores == pp.ProvedorId)?.NomeProvedor
                     }).ToList(),
-                    IdEmpresa = produto.IdEmpresa
+                    ClienteId = produto.ClienteId
                 };
 
                 return CreatedAtAction(nameof(CriarProduto), new { id = produto.IdProduto }, produtoResponse);
