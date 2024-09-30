@@ -7,6 +7,13 @@ ENV TZ="America/Sao_Paulo"
 ENV LANG="pt_BR.UTF-8"
 ENV LANGUAGE="pt_BR:pt"
 ENV LC_ALL="pt_BR.UTF-8"
+
+# JWT Environment Variables
+ENV JWT_ISSUER="localhost:5151"
+ENV JWT_AUDIENCE="localhost:4200"
+ENV JWT_KEY="jfRVHqN7HJExsDokHJRA85tt4QexDeWT"
+
+
 RUN sed -i -e 's/# pt_BR.UTF-8 UTF-8/pt_BR.UTF-8 UTF-8/' /etc/locale.gen
 RUN dpkg-reconfigure --frontend=noninteractive locales
 RUN locale-gen

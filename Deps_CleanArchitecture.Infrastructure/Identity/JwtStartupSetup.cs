@@ -12,6 +12,33 @@ namespace Deps_CleanArchitecture.Infrastructure.Identity
     {
         public static void RegisterJWT(IServiceCollection services)
         {
+            // Carregar as variáveis de ambiente com verificação
+            var jwtIssuer = AmbienteUtil.GetValue("JWT_ISSUER");
+            var jwtAudience = AmbienteUtil.GetValue("JWT_AUDIENCE");
+            var jwtKey = AmbienteUtil.GetValue("JWT_KEY");
+
+            // Verificar se as variáveis são nulas ou vazias e lançar exceções com mensagem apropriada
+            if (string.IsNullOrEmpty(jwtIssuer))
+            {
+                throw new ArgumentNullException("JWT_ISSUER", "JWT_ISSUER não foi definido nas variáveis de ambiente.");
+            }
+
+            if (string.IsNullOrEmpty(jwtAudience))
+            {
+                throw new ArgumentNullException("JWT_AUDIENCE", "JWT_AUDIENCE não foi definido nas variáveis de ambiente.");
+            }
+
+            if (string.IsNullOrEmpty(jwtKey))
+            {
+                throw new ArgumentNullException("JWT_KEY", "JWT_KEY não foi definido nas variáveis de ambiente.");
+            }
+
+            // Logar as informações carregadas para verificação
+            Console.WriteLine($"JWT_ISSUER: {jwtIssuer}");
+            Console.WriteLine($"JWT_AUDIENCE: {jwtAudience}");
+            Console.WriteLine($"JWT_KEY: {jwtKey.Length} characters"); // Não logar a chave inteira por segurança
+
+            // Configuração de JWT
             services.AddAuthentication(authOptions =>
             {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -24,12 +51,13 @@ namespace Deps_CleanArchitecture.Infrastructure.Identity
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = AmbienteUtil.GetValue("JWT_ISSUER"),
-                    ValidAudience = AmbienteUtil.GetValue("JWT_AUDIENCE"),
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AmbienteUtil.GetValue("JWT_KEY")))
+                    ValidIssuer = jwtIssuer,
+                    ValidAudience = jwtAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
                 };
             });
 
+            // Configuração de autorização com JWT
             services.AddAuthorization(auth =>
             {
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Deps_CleanArchitecture.Core.DTO;
 using Deps_CleanArchitecture.Core.Entities;
@@ -11,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace Deps_CleanArchitecture.Web.Controllers
@@ -35,12 +33,10 @@ namespace Deps_CleanArchitecture.Web.Controllers
             _context = context;
         }
 
-        // POST: api/consulta/Consulta
         [HttpPost("Consulta")]
         [Authorize]
         public async Task<IActionResult> ConsultaCnpjProduto([FromBody] ConsultaRequest request)
         {
-            // Obtém o UserId do token JWT, geralmente com a claim sub ou NameIdentifier
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
 
             if (string.IsNullOrEmpty(userId))
@@ -48,7 +44,6 @@ namespace Deps_CleanArchitecture.Web.Controllers
                 return Unauthorized("Usuário não autenticado.");
             }
 
-            // Obtém o ClienteId do token, a claim precisa ser configurada na geração do token
             var clienteId = User.FindFirst("ClienteId")?.Value;
 
             if (string.IsNullOrEmpty(clienteId))
@@ -56,7 +51,6 @@ namespace Deps_CleanArchitecture.Web.Controllers
                 return Unauthorized("ClienteId não encontrado no token.");
             }
 
-            // Busca o produto no banco de dados usando o idProduto
             var produto = await _context.Produtos
                 .Where(p => p.IdProduto == request.idProduto && p.ClienteId == clienteId)
                 .Select(p => new ProdutoRequest
@@ -72,26 +66,19 @@ namespace Deps_CleanArchitecture.Web.Controllers
                     ClienteId = p.ClienteId
                 })
                 .FirstOrDefaultAsync();
-
-
+            
             if (produto == null)
             {
                 return NotFound("Produto não encontrado para o ClienteId especificado.");
             }
 
-            // Cria o payload para ser enviado ou retornado
             var payload = new
             {
                 Documento = request.documento,
                 Produto = produto,
-                UserId = userId, // Usando o UserId extraído do token
-                ClienteId = clienteId // Usando o ClienteId extraído do token
+                UserId = userId, 
+                ClienteId = clienteId 
             };
-
-            // Serializa o payload para JSON, apenas para verificação
-            var jsonPayload = JsonSerializer.Serialize(payload);
-            Console.WriteLine(jsonPayload); // Para fins de debug, remova em produção
-
             return Ok(payload);
         }
     }

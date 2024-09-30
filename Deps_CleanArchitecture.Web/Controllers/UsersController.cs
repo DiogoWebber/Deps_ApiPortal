@@ -186,7 +186,6 @@ public class UsersController : ControllerBase
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AmbienteUtil.GetValue("JWT_KEY")));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        // Configurando o token JWT
         var token = new JwtSecurityToken(
             issuer: AmbienteUtil.GetValue("JWT_ISSUER"),
             audience: AmbienteUtil.GetValue("JWT_AUDIENCE"),
