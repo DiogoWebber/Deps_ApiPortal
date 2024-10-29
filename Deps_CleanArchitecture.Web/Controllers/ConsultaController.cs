@@ -24,7 +24,9 @@ namespace Deps_CleanArchitecture.Web.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IdentityContext _context;
 
-        public ConsultaController(HttpClient httpClient, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IdentityContext context)
+        public ConsultaController(HttpClient httpClient, UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager,
+            IdentityContext context)
         {
             _httpClient = httpClient;
             _userManager = userManager;
@@ -37,7 +39,7 @@ namespace Deps_CleanArchitecture.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ConsultaCnpjProduto([FromBody] ConsultaRequest request)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+            var userId = User.FindFirst("UserId")?.Value;
 
             if (string.IsNullOrEmpty(userId))
             {
@@ -51,33 +53,55 @@ namespace Deps_CleanArchitecture.Web.Controllers
                 return Unauthorized("ClienteId não encontrado no token.");
             }
 
+            // Recupera o usuário e verifica o crédito
+            var usuario = await _context.Users
+                .Where(u => u.Id == userId && u.ClienteId == clienteId)
+                .FirstOrDefaultAsync();
+
+            if (usuario == null)
+            {
+                return Unauthorized("Usuário não encontrado ou cliente não autorizado.");
+            }
+
+            // Recupera o produto para obter o custo da consulta
             var produto = await _context.Produtos
                 .Where(p => p.IdProduto == request.idProduto && p.ClienteId == clienteId)
-                .Select(p => new ProdutoRequest
-                {
-                    idProduto = p.IdProduto,
-                    nomeProduto = p.NomeProduto,
-                    Credito = p.Credito,
-                    Provedores = p.ProdutoProvedores.Select(pp => new ProvedoresRequest
-                    {
-                        IdProvedores = pp.ProvedorId,
-                        NomeProvedor = pp.Provedor.NomeProvedor
-                    }).ToList(),
-                    ClienteId = p.ClienteId
-                })
+                .Include(p => p.ProdutoProvedores)
+                .ThenInclude(pp => pp.Provedor)
                 .FirstOrDefaultAsync();
-            
+
             if (produto == null)
             {
                 return NotFound("Produto não encontrado para o ClienteId especificado.");
             }
 
+            // Verifica se o usuário possui créditos suficientes para cobrir o custo da consulta do produto
+            if (usuario.Credito < produto.Credito) // Usa diretamente o campo Creditos do produto
+            {
+                return BadRequest("Créditos insuficientes para realizar esta busca.");
+            }
+
+            // Deduz o custo da consulta do crédito do usuário
+            usuario.Credito -= produto.Credito;
+            _context.Users.Update(usuario);
+            await _context.SaveChangesAsync();
+
+            // Cria o payload com as informações necessárias
             var payload = new
             {
                 Documento = request.documento,
-                Produto = produto,
-                UserId = userId, 
-                ClienteId = clienteId 
+                Produto = new
+                {
+                    idProduto = produto.IdProduto,
+                    nomeProduto = produto.NomeProduto,
+                    Provedores = produto.ProdutoProvedores.Select(pp => new
+                    {
+                        IdProvedores = pp.ProvedorId,
+                        NomeProvedor = pp.Provedor.NomeProvedor
+                    }).ToList(),
+                    ClienteId = produto.ClienteId
+                },
+                UserId = userId
             };
             return Ok(payload);
         }

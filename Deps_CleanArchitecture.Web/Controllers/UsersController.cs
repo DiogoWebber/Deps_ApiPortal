@@ -34,53 +34,7 @@ public class UsersController : ControllerBase
         _roleManager = roleManager;
         _context = context;
     }
-    [HttpPost("register")]
-    [Authorize(Roles = UsersRoles.Admin)]
-    public async Task<IActionResult> Register([FromBody] RegisterGestorRequest request)
-    {
-        var cliente = await _context.Clientes.FindAsync(request.ClienteId);
-
-        if (cliente == null)
-        {
-            return NotFound("Cliente not found.");
-        }
-
-        var user = new ApplicationUser
-        {
-            UserName = request.Username,
-            ClienteId = cliente.Id,
-            Email = $"{request.Username}@example.com",
-            EmailConfirmed = false,
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
-
-        var result = await _userManager.CreateAsync(user, request.Password);
-
-        if (result.Succeeded)
-        {
-            await _userManager.AddToRoleAsync(user, UsersRoles.Gestor);
-            return Ok("Usuário registrado com sucesso com a role de 'Gestor'.");
-        }
-
-        return BadRequest(result.Errors);
-    }
-
-    [HttpPost("registerADM")]
-    [Authorize(Roles = UsersRoles.Admin)]
-    public async Task<IActionResult> RegisterADM([FromBody] RegisterADMRequest request)
-    {
-        var user = new ApplicationUser { UserName = request.Username };
-        var result = await _userManager.CreateAsync(user, request.Password);
-
-        if (result.Succeeded)
-        {
-            await _userManager.AddToRoleAsync(user, UsersRoles.Admin);
-            return Ok("Usuário registrado com sucesso com a role de 'Admin'.");
-        }
-
-        return BadRequest(result.Errors);
-    }
-
+    
     [HttpPost("registerUsuario")]
     [Authorize(Roles = $"{UsersRoles.Gestor},{UsersRoles.Admin}")]
     public async Task<IActionResult> RegisterUsuario([FromBody] RegisterUsuarioRequest request)
@@ -92,10 +46,17 @@ public class UsersController : ControllerBase
         }
 
         var currentUser = HttpContext.User;
+        var userRole = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-        if (currentUser.IsInRole(UsersRoles.Gestor) && request.Role.Equals(UsersRoles.Admin, StringComparison.OrdinalIgnoreCase))
+        var roleRestrictions = new Dictionary<string, string[]>
         {
-            return Forbid("Usuários com a role de 'Gestor' não podem criar usuários com a role de 'Administrador'.");
+            { UsersRoles.Gestor, new[] { UsersRoles.Admin } },
+            { UsersRoles.Usuario, new[] { UsersRoles.Admin, UsersRoles.Gestor } }
+        };
+
+        if (!string.IsNullOrEmpty(userRole) && roleRestrictions.TryGetValue(userRole, out var restrictedRoles) && restrictedRoles.Contains(request.Role, StringComparer.OrdinalIgnoreCase))
+        {
+            return Forbid($"Usuários com a role de '{userRole}' não podem criar usuários com a role de '{request.Role}'.");
         }
 
         var clienteIdClaim = currentUser.FindFirst("ClienteId")?.Value;
@@ -117,7 +78,7 @@ public class UsersController : ControllerBase
             await _userManager.AddToRoleAsync(user, request.Role);
             return Ok($"Usuário registrado com sucesso com a role de '{request.Role}'.");
         }
-
+        
         return BadRequest(result.Errors);
     }
 

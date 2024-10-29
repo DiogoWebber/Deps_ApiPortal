@@ -33,12 +33,6 @@ namespace Deps_CleanArchitecture.Infrastructure.Identity
                 throw new ArgumentNullException("JWT_KEY", "JWT_KEY não foi definido nas variáveis de ambiente.");
             }
 
-            // Logar as informações carregadas para verificação
-            Console.WriteLine($"JWT_ISSUER: {jwtIssuer}");
-            Console.WriteLine($"JWT_AUDIENCE: {jwtAudience}");
-            Console.WriteLine($"JWT_KEY: {jwtKey.Length} characters"); // Não logar a chave inteira por segurança
-
-            // Configuração de JWT
             services.AddAuthentication(authOptions =>
             {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
