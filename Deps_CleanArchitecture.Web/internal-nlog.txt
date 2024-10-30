@@ -3202,3 +3202,256 @@
 2024-10-29 14:43:03.3026 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
    at NLog.Mongo.MongoTarget.InitializeTarget()
    at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-29 14:52:46.0538 Info Shutdown() called. Logger closing...
+2024-10-29 14:52:46.0538 Info Closing old configuration.
+2024-10-29 14:52:46.0654 Info Logger has been closed down.
+2024-10-29 14:52:46.1085 Info AppDomain Shutting down. LogFactory closing...
+2024-10-29 14:52:46.1085 Info LogFactory has been closed.
+2024-10-29 15:35:03.6616 Info Message Template Auto Format enabled
+2024-10-29 15:35:03.6962 Info Loading assembly: NLog.Mongo
+2024-10-29 15:35:03.7507 Info Adding target MongoTarget(Name=logfile)
+2024-10-29 15:35:03.7750 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-29 15:35:03.7932 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-29 15:38:08.6402 Info Message Template Auto Format enabled
+2024-10-29 15:38:08.6626 Info Loading assembly: NLog.Mongo
+2024-10-29 15:38:08.7061 Info Adding target MongoTarget(Name=logfile)
+2024-10-29 15:38:08.7242 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-29 15:38:08.7365 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-29 15:39:48.5699 Info Shutdown() called. Logger closing...
+2024-10-29 15:39:48.5699 Info Closing old configuration.
+2024-10-29 15:39:48.5783 Info Logger has been closed down.
+2024-10-29 15:39:48.5783 Info AppDomain Shutting down. LogFactory closing...
+2024-10-29 15:39:48.5783 Info LogFactory has been closed.
+2024-10-30 13:36:37.6489 Info Message Template Auto Format enabled
+2024-10-30 13:36:37.6870 Info Loading assembly: NLog.Mongo
+2024-10-30 13:36:37.7327 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 13:36:37.7520 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 13:36:37.7738 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 13:37:17.2772 Info Shutdown() called. Logger closing...
+2024-10-30 13:37:17.2772 Info Closing old configuration.
+2024-10-30 13:37:17.2858 Info Logger has been closed down.
+2024-10-30 13:37:17.2858 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 13:37:17.2882 Info LogFactory has been closed.
+2024-10-30 13:37:17.9336 Info Message Template Auto Format enabled
+2024-10-30 13:37:17.9559 Info Loading assembly: NLog.Mongo
+2024-10-30 13:37:17.9981 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 13:37:18.0176 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 13:37:18.0293 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 13:38:17.5101 Info Shutdown() called. Logger closing...
+2024-10-30 13:38:17.5101 Info Closing old configuration.
+2024-10-30 13:38:17.5171 Info Logger has been closed down.
+2024-10-30 13:38:17.5171 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 13:38:17.5171 Info LogFactory has been closed.
+2024-10-30 13:38:18.2337 Info Message Template Auto Format enabled
+2024-10-30 13:38:18.2563 Info Loading assembly: NLog.Mongo
+2024-10-30 13:38:18.3037 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 13:38:18.3244 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 13:38:18.3361 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 13:53:10.9597 Info Shutdown() called. Logger closing...
+2024-10-30 13:53:10.9598 Info Closing old configuration.
+2024-10-30 13:53:10.9700 Info Logger has been closed down.
+2024-10-30 13:53:10.9700 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 13:53:10.9721 Info LogFactory has been closed.
+2024-10-30 14:00:55.1345 Info Message Template Auto Format enabled
+2024-10-30 14:00:55.1827 Info Loading assembly: NLog.Mongo
+2024-10-30 14:00:55.3163 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 14:00:55.3684 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/home/diogo/Área de Trabalho/projetoAngular/CleanDepsArchitecture/Deps_CleanArchitecture.Web/bin/Debug/net6.0/nlog.config
+2024-10-30 14:00:55.4254 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 14:00:57.7096 Info Shutdown() called. Logger closing...
+2024-10-30 14:00:57.7096 Info Closing old configuration.
+2024-10-30 14:00:57.7357 Info Logger has been closed down.
+2024-10-30 14:00:57.7922 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 14:00:57.7922 Info LogFactory has been closed.
+2024-10-30 14:01:02.4873 Info Message Template Auto Format enabled
+2024-10-30 14:01:02.5274 Info Loading assembly: NLog.Mongo
+2024-10-30 14:01:02.6135 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 14:01:02.6538 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/home/diogo/Área de Trabalho/projetoAngular/CleanDepsArchitecture/Deps_CleanArchitecture.Web/bin/Debug/net6.0/nlog.config
+2024-10-30 14:01:02.7085 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 14:04:40.8118 Info Message Template Auto Format enabled
+2024-10-30 14:04:40.8613 Info Loading assembly: NLog.Mongo
+2024-10-30 14:04:40.9601 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 14:04:40.9892 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/home/diogo/Área de Trabalho/projetoAngular/CleanDepsArchitecture/Deps_CleanArchitecture.Web/bin/Debug/net6.0/nlog.config
+2024-10-30 14:04:41.0106 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 14:06:49.4550 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 14:06:49.4550 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 14:06:49.4550 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 14:06:49.4550 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 14:06:50.4608 Info Reloading configuration...
+2024-10-30 14:06:50.4643 Info Loading NLog config from XML file: /home/diogo/Área de Trabalho/projetoAngular/CleanDepsArchitecture/Deps_CleanArchitecture.Web/bin/Debug/net6.0/nlog.config
+2024-10-30 14:06:50.4643 Info Message Template Auto Format enabled
+2024-10-30 14:06:50.4643 Info Loading assembly: NLog.Mongo
+2024-10-30 14:06:50.4643 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 14:06:50.4690 Info Closing old configuration.
+2024-10-30 14:06:50.4859 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/home/diogo/Área de Trabalho/projetoAngular/CleanDepsArchitecture/Deps_CleanArchitecture.Web/bin/Debug/net6.0/nlog.config
+2024-10-30 14:06:50.4859 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 14:06:50.5686 Info Message Template Auto Format enabled
+2024-10-30 14:06:50.6070 Info Loading assembly: NLog.Mongo
+2024-10-30 14:06:50.6725 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 14:06:50.6918 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 14:06:50.7049 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:05:01.6698 Info Shutdown() called. Logger closing...
+2024-10-30 17:05:01.6698 Info Closing old configuration.
+2024-10-30 17:05:01.6777 Info Logger has been closed down.
+2024-10-30 17:05:01.6777 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 17:05:01.6800 Info LogFactory has been closed.
+2024-10-30 17:05:02.3540 Info Message Template Auto Format enabled
+2024-10-30 17:05:02.3797 Info Loading assembly: NLog.Mongo
+2024-10-30 17:05:02.4331 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:05:02.4543 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:05:02.4687 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:08:50.4377 Info Shutdown() called. Logger closing...
+2024-10-30 17:08:50.4377 Info Closing old configuration.
+2024-10-30 17:08:50.4463 Info Logger has been closed down.
+2024-10-30 17:08:50.4463 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 17:08:50.4484 Info LogFactory has been closed.
+2024-10-30 17:08:51.2593 Info Message Template Auto Format enabled
+2024-10-30 17:08:51.2889 Info Loading assembly: NLog.Mongo
+2024-10-30 17:08:51.3438 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:08:51.3649 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:08:51.3837 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:13:41.7775 Info Shutdown() called. Logger closing...
+2024-10-30 17:13:41.7775 Info Closing old configuration.
+2024-10-30 17:13:41.7869 Info Logger has been closed down.
+2024-10-30 17:13:41.7878 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 17:13:41.7878 Info LogFactory has been closed.
+2024-10-30 17:13:42.4880 Info Message Template Auto Format enabled
+2024-10-30 17:13:42.5106 Info Loading assembly: NLog.Mongo
+2024-10-30 17:13:42.5565 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:13:42.5763 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:13:42.5893 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:13:52.6020 Info Shutdown() called. Logger closing...
+2024-10-30 17:13:52.6020 Info Closing old configuration.
+2024-10-30 17:13:52.6097 Info Logger has been closed down.
+2024-10-30 17:13:52.6097 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 17:13:52.6097 Info LogFactory has been closed.
+2024-10-30 17:16:04.2766 Info Shutdown() called. Logger closing...
+2024-10-30 17:16:04.2766 Info Closing old configuration.
+2024-10-30 17:16:04.2766 Info Logger has been closed down.
+2024-10-30 17:16:04.3316 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 17:16:04.3335 Info LogFactory has been closed.
+2024-10-30 17:16:15.2253 Info Message Template Auto Format enabled
+2024-10-30 17:16:15.2482 Info Loading assembly: NLog.Mongo
+2024-10-30 17:16:15.3022 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:16:15.3240 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:16:15.3366 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:17:03.0368 Info Shutdown() called. Logger closing...
+2024-10-30 17:17:03.0368 Info Closing old configuration.
+2024-10-30 17:17:03.0485 Info Logger has been closed down.
+2024-10-30 17:17:03.0485 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 17:17:03.0485 Info LogFactory has been closed.
+2024-10-30 17:17:03.7984 Info Message Template Auto Format enabled
+2024-10-30 17:17:03.8225 Info Loading assembly: NLog.Mongo
+2024-10-30 17:17:03.8692 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:17:03.8907 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:17:03.9039 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:17:15.3960 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:15.3960 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:15.3960 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:15.3960 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:15.3960 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:16.6027 Info Message Template Auto Format enabled
+2024-10-30 17:17:16.6277 Info Loading assembly: NLog.Mongo
+2024-10-30 17:17:16.6710 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:17:16.6904 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:17:16.7021 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:17:30.9198 Info Message Template Auto Format enabled
+2024-10-30 17:17:30.9426 Info Loading assembly: NLog.Mongo
+2024-10-30 17:17:30.9900 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:17:31.0091 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:17:31.0198 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:17:57.5622 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:57.5622 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:57.5622 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:57.5622 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:17:58.7041 Info Message Template Auto Format enabled
+2024-10-30 17:17:58.7276 Info Loading assembly: NLog.Mongo
+2024-10-30 17:17:58.7746 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:17:58.8002 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:17:58.8131 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:18:30.0581 Info Message Template Auto Format enabled
+2024-10-30 17:18:30.0805 Info Loading assembly: NLog.Mongo
+2024-10-30 17:18:30.1248 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:18:30.1557 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:18:30.1775 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:19:04.4161 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:19:04.4161 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:19:04.4161 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:19:04.4161 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:19:05.5957 Info Message Template Auto Format enabled
+2024-10-30 17:19:05.6302 Info Loading assembly: NLog.Mongo
+2024-10-30 17:19:05.6777 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:19:05.6971 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:19:05.7084 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:50:32.7378 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:50:32.7378 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:50:32.7378 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:50:32.7378 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:50:33.9863 Info Message Template Auto Format enabled
+2024-10-30 17:50:34.0115 Info Loading assembly: NLog.Mongo
+2024-10-30 17:50:34.0605 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:50:34.0819 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:50:34.0963 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:54:14.1221 Info Shutdown() called. Logger closing...
+2024-10-30 17:54:14.1221 Info Closing old configuration.
+2024-10-30 17:54:14.1318 Info Logger has been closed down.
+2024-10-30 17:54:14.1318 Info AppDomain Shutting down. LogFactory closing...
+2024-10-30 17:54:14.1318 Info LogFactory has been closed.
+2024-10-30 17:54:14.9253 Info Message Template Auto Format enabled
+2024-10-30 17:54:14.9516 Info Loading assembly: NLog.Mongo
+2024-10-30 17:54:15.0048 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:54:15.0261 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:54:15.0406 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2024-10-30 17:55:09.6305 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:55:09.6305 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:55:09.6305 Info Configuration file change detected! Reloading in 1000ms...
+2024-10-30 17:55:13.2192 Info Message Template Auto Format enabled
+2024-10-30 17:55:13.2495 Info Loading assembly: NLog.Mongo
+2024-10-30 17:55:13.3265 Info Adding target MongoTarget(Name=logfile)
+2024-10-30 17:55:13.3554 Info Validating config: TargetNames=logfile, ConfigItems=17, FilePath=/app/bin/Debug/net6.0/nlog.config
+2024-10-30 17:55:13.3931 Warn MongoTarget(Name=logfile): Exception in Initialize Exception: NLog.NLogConfigurationException: Can not resolve MongoDB ConnectionString. Please make sure the ConnectionString property is set.
+   at NLog.Mongo.MongoTarget.InitializeTarget()
+   at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)

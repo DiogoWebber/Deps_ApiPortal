@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Deps_CleanArchitecture.Core.DTO;
 using Deps_CleanArchitecture.Core.Entities;
@@ -34,7 +35,7 @@ namespace Deps_CleanArchitecture.Web.Controllers
             _roleManager = roleManager;
             _context = context;
         }
-
+        
         [HttpPost("Consulta")]
         [Authorize]
         public async Task<IActionResult> ConsultaCnpjProduto([FromBody] ConsultaRequest request)
@@ -76,7 +77,7 @@ namespace Deps_CleanArchitecture.Web.Controllers
             }
 
             // Verifica se o usuário possui créditos suficientes para cobrir o custo da consulta do produto
-            if (usuario.Credito < produto.Credito) // Usa diretamente o campo Creditos do produto
+            if (usuario.Credito < produto.Credito)
             {
                 return BadRequest("Créditos insuficientes para realizar esta busca.");
             }
@@ -87,10 +88,13 @@ namespace Deps_CleanArchitecture.Web.Controllers
             await _context.SaveChangesAsync();
 
             // Cria o payload com as informações necessárias
-            var payload = new
+            ProdutoRequest produtoRequest = new ProdutoRequest();
+            
+            
+            var payload = new ExternalConsultaRequest
             {
                 Documento = request.documento,
-                Produto = new
+                Produto = new 
                 {
                     idProduto = produto.IdProduto,
                     nomeProduto = produto.NomeProduto,
@@ -103,7 +107,34 @@ namespace Deps_CleanArchitecture.Web.Controllers
                 },
                 UserId = userId
             };
-            return Ok(payload);
+            // Envia o payload para a API externa
+            var externalApiUrl = "http://deps_consulta:8080/api/Consulta/consultar"; // Substitua com a URL da sua API externa
+            var content = new StringContent(
+                System.Text.Json.JsonSerializer.Serialize(payload),
+                System.Text.Encoding.UTF8,
+                "application/json"
+            );
+
+            HttpResponseMessage response;
+            try
+            {
+                response = await _httpClient.PostAsync(externalApiUrl, content);
+
+                // Verifica se a resposta da API externa foi bem-sucedida
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    return StatusCode((int)response.StatusCode, $"Erro na API externa: {errorMessage}");
+                }
+
+                // Lê a resposta da API externa e retorna ao cliente
+                var resultContent = await response.Content.ReadAsStringAsync();
+                return Ok(new { message = "Consulta realizada com sucesso!", data = resultContent });
+            }
+            catch (HttpRequestException e)
+            {
+                return StatusCode(500, $"Erro ao conectar com a API externa: {e.Message}");
+            }
         }
     }
 }
